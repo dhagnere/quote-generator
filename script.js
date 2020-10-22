@@ -24,6 +24,7 @@ function complete() {
 
 //show individual quote from array apiQuotes
 function newQuote() {
+    loading();
     //pick a random quote from array
     const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
    //Check if author field is blank and replace  by "unknown"
@@ -39,7 +40,8 @@ function newQuote() {
         //else remove the css class
         quoteText.classList.remove('long-quote');
     }
-      quoteText.textContent = quote.text;  
+    quoteText.textContent = quote.text;  
+    complete();
 }
 
 // Get Quote From API
@@ -50,7 +52,6 @@ async function getQuotes() {
         const response = await fetch(apiUrl);
         apiQuotes = await response.json();
         newQuote();
-        complete();
     } catch (error) {
         getQuotes();
     }
